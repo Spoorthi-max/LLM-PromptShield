@@ -92,69 +92,7 @@ The main objectives of LLM-PromptShield are:
 
 ---
 
-# 🏗️ System Architecture
 
-LLM-PromptShield follows a **defense-in-depth architecture**, where multiple security layers analyze an incoming prompt before it reaches a protected LLM or agent workflow.
-
-```text
-                         ┌──────────────────────┐
-                         │        USER          │
-                         │                      │
-                         │     Input Prompt     │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │   INPUT PROCESSING   │
-                         │                      │
-                         │ • Validation         │
-                         │ • Normalization      │
-                         │ • Preprocessing      │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                  ┌─────────────────────────────────────┐
-                  │         SECURITY ANALYSIS            │
-                  └──────────────────┬──────────────────┘
-                                     │
-                ┌────────────────────┼────────────────────┐
-                │                    │                    │
-                ▼                    ▼                    ▼
-       ┌────────────────┐   ┌────────────────┐   ┌────────────────┐
-       │   DeBERTa-v3   │   │     Qdrant     │   │   Security     │
-       │   Classifier   │   │    Retrieval   │   │    Analysis    │
-       │                │   │                │   │                │
-       │ Threat         │   │ Semantic       │   │ Attack / Risk  │
-       │ Classification │   │ Similarity     │   │ Evaluation     │
-       └───────┬────────┘   └───────┬────────┘   └───────┬────────┘
-               │                    │                    │
-               └────────────────────┼────────────────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │      LANGGRAPH       │
-                         │     ORCHESTRATION    │
-                         │                      │
-                         │ Multi-Stage Security│
-                         │ Decision Workflow    │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │  SECURITY DECISION   │
-                         │                      │
-                         │   ✓ ALLOW            │
-                         │   ⚠ FLAG             │
-                         │   ✕ BLOCK             │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │    PROTECTED LLM     │
-                         │   / AGENT WORKFLOW   │
-                         └──────────────────────┘
---
-```markdown
 ### 🛠️ Technologies Used
 
 | Category | Technology | Purpose |
