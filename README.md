@@ -154,7 +154,7 @@ LLM-PromptShield follows a **defense-in-depth architecture**, where multiple sec
                          │   / AGENT WORKFLOW   │
                          └──────────────────────┘
 --
-```text
+```markdown
 ### 🛠️ Technologies Used
 
 | Category | Technology | Purpose |
