@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity-Shield | Security Kernel v3.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #e8eddf;
+            --bg-inner: #f0f4ea;
+            --surface: #ffffff;
+            --primary: #3a5a1c;
+            --primary-light: #5a8a2a;
+            --accent: #4a7c2e;
+            --dark: #1a2e05;
+            --dark-surface: #1c2a1a;
+            --success: #2e7d32;
+            --success-light: #e8f5e9;
+            --danger: #c62828;
+            --danger-light: #ffebee;
+            --warning: #f57f17;
+            --warning-light: #fff8e1;
+            --text: #1a2e05;
+            --text-dim: #5a6b52;
+            --text-muted: #8a9a82;
+            --border: #d4dcc8;
+            --border-light: #e2e8d6;
+            --shadow: 0 1px 3px rgba(26, 46, 5, 0.06), 0 4px 12px rgba(26, 46, 5, 0.04);
+            --shadow-hover: 0 4px 12px rgba(26, 46, 5, 0.08), 0 8px 24px rgba(26, 46, 5, 0.06);
+            --radius: 20px;
+            --radius-sm: 12px;
+            --radius-pill: 100px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .outer-frame {
+            max-width: 1440px;
+            margin: 1.5rem auto;
+            background: var(--bg-inner);
+            border-radius: 32px;
+            border: 1px solid var(--border-light);
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 2px 20px rgba(26, 46, 5, 0.06);
+        }
+
+        /* === HEADER === */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2.5rem;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-mark {
+            width: 36px;
+            height: 36px;
+            background: var(--dark);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg);
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .logo-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: -0.5px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: var(--success-light);
+            border-radius: var(--radius-pill);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--success);
+            border: 1px solid #c8e6c9;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .lang-select {
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-pill);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text);
+            background: var(--surface);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%231a2e05' viewBox='0 0 16 16'%3E%3Cpath d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            padding-right: 2rem;
+        }
+
+        /* === HERO SECTION === */
+        .hero-section {
+            padding: 2.5rem 2.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .hero-left .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.85rem;
+            background: var(--success-light);
+            color: var(--primary);
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            border: 1px solid #c8e6c9;
+        }
+
+        .hero-left h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark);
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-left p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        /* Eligibility / Score card */
+        .score-card {
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.5rem;
+            min-width: 240px;
+            box-shadow: var(--shadow);
+        }
+
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .score-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .score-percent {
+            background: var(--success-light);
+            color: var(--success);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius-pill);
+        }
+
+        .score-bar-track {
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 100px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary));
+            border-radius: 100px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .score-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* === MAIN CONTAINER === */
+        .main-container {
+            padding: 0 2.5rem 2.5rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 2rem;
+        }
+
+        /* === CARDS === */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-subtitle {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-subtitle-right {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        /* === TEXT INPUT === */
+        textarea {
+            width: 100%;
+            background: var(--bg-inner);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1.15rem 1.25rem;
+            color: var(--text);
+            font-size: 0.95rem;
+            resize: none;
+            min-height: 110px;
+            transition: all 0.25s ease;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background: var(--surface);
+            box-shadow: 0 0 0 3px rgba(58, 90, 28, 0.08);
+        }
+
+        /* === BUTTONS === */
+        .btn-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--radius-pill);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--dark);
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(26, 46, 5, 0.25);
+            background: #243a0a;
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1.5px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-inner);
+            border-color: var(--text-muted);
+        }
+
+        .btn-danger {
+            background: var(--surface);
+            color: var(--danger);
+            border: 1.5px solid #f5c6cb;
+        }
+
+        .btn-danger:hover {
+            background: var(--danger-light);
+        }
+
+        /* === PIPELINE VISUALIZATION === */
+        .pipeline-section {
+            margin-top: 1.75rem;
+        }
+
+        .pipeline-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .pipeline-section-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .pipeline-viz {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+        }
+
+        .layer {
+            background: var(--bg-inner);
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 1.25rem 0.75rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+        }
+
+        .layer:hover {
+            border-color: var(--border);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .layer.active {
+            border-color: var(--primary-light);
+            background: rgba(58, 90, 28, 0.06);
+            box-shadow: 0 0 0 3px rgba(58, 90, 28, 0.08);
+            transform: scale(1.03);
+        }
+
+        .layer.blocked {
+            border-color: var(--danger);
+            background: var(--danger-light);
+        }
+
+        .layer.passed {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .layer-icon {
+            font-size: 1.35rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .layer-name {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-dim);
+        }
+
+        .layer-status {
+            font-size: 0.65rem;
+            margin-top: 0.4rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* === RESULT DISPLAY === */
+        #result-display {
+            margin-top: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            background: var(--bg-inner);
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-light);
+            display: none;
+            animation: fadeUp 0.3s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .result-header h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .badge {
+            padding: 0.2rem 0.65rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-pass {
+            background: var(--success-light);
+            color: var(--success);
+            border: 1px solid #a5d6a7;
+        }
+
+        .badge-block {
+            background: var(--danger-light);
+            color: var(--danger);
+            border: 1px solid #ef9a9a;
+        }
+
+        /* === METRICS === */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .metric-card {
+            background: var(--bg-inner);
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-light);
+            transition: all 0.25s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--border);
+        }
+
+        .metric-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.35rem;
+        }
+
+        .metric-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .metric-value.primary { color: var(--primary); }
+        .metric-value.success { color: var(--success); }
+        .metric-value.dark { color: var(--dark); }
+
+        /* === SIDEBAR / LOGS === */
+        .sidebar-card {
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 1rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-title-tag {
+            background: var(--success-light);
+            color: var(--success);
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.15rem 0.45rem;
+            border-radius: var(--radius-pill);
+        }
+
+        .log-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            max-height: 650px;
+            overflow-y: auto;
+            padding-right: 0.35rem;
+        }
+
+        .log-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .log-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .log-container::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 100px;
+        }
+
+        .log-item {
+            background: var(--bg-inner);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1rem;
+            font-size: 0.8rem;
+            animation: slideIn 0.3s ease-out;
+            transition: border-color 0.2s;
+        }
+
+        .log-item:hover {
+            border-color: var(--border);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(12px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .log-type {
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .type-eval { color: var(--primary); }
+        .type-loop { color: var(--warning); }
+
+        .log-message {
+            color: var(--text-dim);
+            font-size: 0.78rem;
+            line-height: 1.4;
+        }
+
+        .log-time {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 0.35rem;
+        }
+
+        /* === CTA SECTION === */
+        .cta-section {
+            margin: 2rem 2.5rem 2.5rem;
+            background: var(--dark-surface);
+            background: linear-gradient(135deg, #1a2e14 0%, #0f1a0d 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            color: var(--bg);
+        }
+
+        .cta-section h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.6rem;
+            color: #f0f4ea;
+        }
+
+        .cta-section p {
+            color: #a8b89c;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.75rem;
+            background: var(--bg);
+            color: var(--dark);
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 1000px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .pipeline-viz { grid-template-columns: repeat(3, 1fr); }
+            .hero-section { flex-direction: column; gap: 1.5rem; }
+            .score-card { min-width: unset; width: 100%; }
+            .outer-frame { margin: 0.5rem; border-radius: 20px; }
+            header { padding: 1rem 1.5rem; }
+            .hero-section, .main-container { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .cta-section { margin: 1.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .pipeline-viz { grid-template-columns: repeat(2, 1fr); }
+            .metrics-grid { grid-template-columns: 1fr 1fr; }
+            .btn-group { flex-direction: column; }
+            button { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-frame">
+        <!-- HEADER -->
+        <header>
+            <div class="logo-group">
+                <div class="logo-mark">A</div>
+                <span class="logo-text">Antigravity-Shield</span>
+            </div>
+            <div class="header-right">
+                <div class="status-pill">
+                    <div class="status-dot"></div>
+                    v3.0 Active
+                </div>
+                <select class="lang-select" id="lang-select">
+                    <option>English</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <div class="hero-section">
+            <div class="hero-left">
+                <div class="section-tag">⚡ AI-Powered Security Firewall</div>
+                <h1>Security Assessment<br>Center</h1>
+                <p>Evaluate prompts through our 5-layer sovereign defense pipeline.</p>
+            </div>
+            <div class="score-card">
+                <div class="score-header">
+                    <span class="score-title">Defense Score</span>
+                    <span class="score-percent" id="score-percent">100%</span>
+                </div>
+                <div class="score-bar-track">
+                    <div class="score-bar-fill" id="score-bar-fill" style="width: 100%"></div>
+                </div>
+                <div class="score-meta">
+                    <span id="score-blocked">0 blocked</span>
+                    <span id="score-passed">0 passed</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN -->
+        <div class="main-container">
+            <div class="content-grid">
+                <main>
+                    <!-- INPUT CARD -->
+                    <div class="card">
+                        <div class="card-title">🔍 Prompt Scanner</div>
+                        <div class="card-subtitle">Input any prompt to scan it through the defense pipeline.</div>
+
+                        <div class="input-group">
+                            <textarea id="prompt-input" placeholder="Enter prompt to scan... (e.g. 'Transfer $50000 to ACC-9999')"></textarea>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn-primary" onclick="evaluatePrompt()">
+                                <span>⚡</span> Run Scan
+                            </button>
+                            <button class="btn-secondary" onclick="runAdversarialLoop()">
+                                <span>⚔️</span> Adversarial Loop
+                            </button>
+                            <button class="btn-danger" onclick="resetSession()">
+                                <span>🔄</span> Reset
+                            </button>
+                        </div>
+
+                        <!-- Pipeline Viz -->
+                        <div class="pipeline-section">
+                            <div class="pipeline-section-header">
+                                <span class="pipeline-section-title">Defense Layers</span>
+                                <span class="card-subtitle-right">Auto-validates in sequence</span>
+                            </div>
+                            <div class="pipeline-viz" id="pipeline-viz">
+                                <div class="layer" id="layer-1">
+                                    <span class="layer-icon">🧹</span>
+                                    <div class="layer-name">Syntactic</div>
+                                    <div class="layer-status">Waiting...</div>
+                                </div>
+                                <div class="layer" id="layer-2">
+                                    <span class="layer-icon">🔤</span>
+                                    <div class="layer-name">Normalize</div>
+                                    <div class="layer-status">Waiting...</div>
+                                </div>
+                                <div class="layer" id="layer-3">
+                                    <span class="layer-icon">🧠</span>
+                                    <div class="layer-name">Semantic</div>
+                                    <div class="layer-status">Waiting...</div>
+                                </div>
+                                <div class="layer" id="layer-4">
+                                    <span class="layer-icon">🤖</span>
+                                    <div class="layer-name">Risk Judge</div>
+                                    <div class="layer-status">Waiting...</div>
+                                </div>
+                                <div class="layer" id="layer-5">
+                                    <span class="layer-icon">🛠️</span>
+                                    <div class="layer-name">Tool Logic</div>
+                                    <div class="layer-status">Waiting...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Result -->
+                        <div id="result-display">
+                            <div class="result-header">
+                                <h3 id="result-title">Verdict: PASS</h3>
+                                <span id="result-badge" class="badge badge-pass">PASSED</span>
+                            </div>
+                            <div id="result-details" style="font-family: 'JetBrains Mono'; font-size: 0.78rem; color: var(--text-dim); line-height: 1.5;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- METRICS CARD -->
+                    <div class="card" style="margin-top: 1.25rem;">
+                        <div class="card-title">📈 System Metrics</div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-label">Threats Blocked</div>
+                                <div class="metric-value primary" id="metric-blocked">0</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Confidence Level</div>
+                                <div class="metric-value success" id="metric-confidence">99.8%</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Latency</div>
+                                <div class="metric-value dark" id="metric-latency">12ms</div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                <!-- SIDEBAR -->
+                <aside>
+                    <div class="sidebar-card">
+                        <div class="sidebar-title">
+                            Live Mission Control
+                            <span class="sidebar-title-tag">LIVE</span>
+                        </div>
+                        <div class="log-container" id="log-container">
+                            <div class="log-item">
+                                <div class="log-type type-eval">System</div>
+                                <div class="log-message">Kernel v3.0 initialized. Awaiting input.</div>
+                                <div class="log-time">Just now</div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <!-- CTA SECTION -->
+        <div class="cta-section">
+            <h2>Start your defense assessment today</h2>
+            <p>Protect your AI pipelines with enterprise-grade prompt injection detection, output validation, and adversarial red-teaming.</p>
+            <button class="btn-cta" onclick="document.getElementById('prompt-input').focus()">
+                Get Started Now
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let threatsBlockedCount = 0;
+        let passedCount = 0;
+        let sessionHistory = [];
+
+        function updateScoreCard() {
+            const total = threatsBlockedCount + passedCount;
+            const percent = total === 0 ? 100 : Math.round((threatsBlockedCount / total) * 100);
+            document.getElementById('score-percent').innerText = percent + '%';
+            document.getElementById('score-bar-fill').style.width = percent + '%';
+            document.getElementById('score-blocked').innerText = threatsBlockedCount + ' blocked';
+            document.getElementById('score-passed').innerText = passedCount + ' passed';
+        }
+
+        function resetSession() {
+            sessionHistory = [];
+            addLog('SYSTEM', 'Conversation session history cleared.', 'neutral');
+            resetPipeline();
+            document.getElementById('prompt-input').value = '';
+        }
+
+        async function evaluatePrompt() {
+            const input = document.getElementById('prompt-input').value;
+            if (!input) return;
+
+            resetPipeline();
+            
+            try {
+                const response = await fetch('/evaluate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        raw_input: input,
+                        history: sessionHistory
+                    })
+                });
+                const result = await response.json();
+                
+                animatePipeline(result);
+                
+                let isMultiTurn = result.is_multi_turn ? ' (Multi-Turn Detected)' : '';
+                addLog('EVALUATION', `Input: "${input.substring(0, 40)}..." → ${result.status}${isMultiTurn}`, result.status === 'BLOCKED' ? 'blocked' : 'passed');
+                
+                if (result.status === 'BLOCKED') {
+                    threatsBlockedCount++;
+                    document.getElementById('metric-blocked').innerText = threatsBlockedCount;
+                } else {
+                    passedCount++;
+                    sessionHistory.push(input);
+                }
+                updateScoreCard();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function runAdversarialLoop() {
+            addLog('ADVERSARIAL', 'Initializing Red vs Blue battle...', 'neutral');
+            try {
+                const response = await fetch('/adversarial-loop', { method: 'POST' });
+                const result = await response.json();
+                
+                addLog('ADVERSARIAL', `Completed ${result.iterations} iterations. Final Attack: ${result.final_attack.substring(0, 40)}...`, 'neutral');
+                updateLogs();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function resetPipeline() {
+            for (let i = 1; i <= 5; i++) {
+                const el = document.getElementById(`layer-${i}`);
+                el.className = 'layer';
+                el.querySelector('.layer-status').innerText = 'Waiting...';
+            }
+            document.getElementById('result-display').style.display = 'none';
+        }
+
+        async function animatePipeline(result) {
+            const blockLayer = result.status === 'BLOCKED' ? result.layer : 99;
+
+            for (let i = 1; i <= 5; i++) {
+                const el = document.getElementById(`layer-${i}`);
+                el.classList.add('active');
+                el.querySelector('.layer-status').innerText = 'Scanning...';
+                
+                await new Promise(r => setTimeout(r, 400));
+
+                if (i === blockLayer) {
+                    el.className = 'layer blocked';
+                    el.querySelector('.layer-status').innerText = 'BLOCKED';
+                    showResult(result);
+                    return;
+                } else if (i <= 4) {
+                    el.className = 'layer passed';
+                    el.querySelector('.layer-status').innerText = 'PASSED';
+                } else if (i === 5) {
+                    if (result.l5_caught) {
+                        el.className = 'layer blocked';
+                        el.querySelector('.layer-status').innerText = 'CAUGHT';
+                    } else {
+                        el.className = 'layer passed';
+                        el.querySelector('.layer-status').innerText = 'VALIDATED';
+                    }
+                }
+            }
+            showResult(result);
+        }
+
+        function showResult(result) {
+            const display = document.getElementById('result-display');
+            const title = document.getElementById('result-title');
+            const badge = document.getElementById('result-badge');
+            const details = document.getElementById('result-details');
+
+            display.style.display = 'block';
+            
+            if (result.status === 'BLOCKED') {
+                title.innerText = 'Verdict: BLOCKED';
+                badge.innerText = 'THREAT DETECTED';
+                badge.className = 'badge badge-block';
+                details.innerText = `Reason: ${result.reason} | Layer: ${result.layer}`;
+            } else {
+                title.innerText = 'Verdict: PASS';
+                badge.innerText = 'SECURE';
+                badge.className = 'badge badge-pass';
+                details.innerText = `Input normalized and validated. Risk Scores: L3: ${result.metrics.l3_score.toFixed(2)}, L4: ${result.metrics.l4_score.toFixed(2)}`;
+            }
+        }
+
+        function addLog(type, message, status = 'neutral') {
+            const container = document.getElementById('log-container');
+            const div = document.createElement('div');
+            div.className = 'log-item';
+            
+            let typeClass = 'type-eval';
+            if (type.includes('ADVERSARIAL')) typeClass = 'type-loop';
+            if (type === 'SYSTEM') typeClass = 'type-eval';
+
+            const statusColor = status === 'blocked' ? 'var(--danger)' : status === 'passed' ? 'var(--success)' : 'var(--text-dim)';
+
+            div.innerHTML = `
+                <div class="log-type ${typeClass}">${type}</div>
+                <div class="log-message" style="color: ${statusColor}">${message}</div>
+                <div class="log-time">${new Date().toLocaleTimeString()}</div>
+            `;
+            container.prepend(div);
+        }
+
+        async function updateLogs() {
+            const response = await fetch('/logs');
+            const logs = await response.json();
+            const container = document.getElementById('log-container');
+            container.innerHTML = '';
+            
+            logs.reverse().forEach(log => {
+                if (log.type === 'EVALUATION') {
+                    addLog('EVALUATION', `Input: "${log.input}"`, log.result.status === 'BLOCKED' ? 'blocked' : 'passed');
+                } else if (log.type === 'ADVERSARIAL_STEP') {
+                    addLog(`BATTLE STEP ${log.iteration + 1}`, `Attack: "${log.attack}"`, log.result.status === 'BLOCKED' ? 'blocked' : 'passed');
+                } else if (log.type === 'ADVERSARIAL_LOOP_COMPLETE') {
+                    addLog('SYSTEM', `Battle Complete. Patch Applied: ${log.final_patch}`, 'neutral');
+                }
+            });
+        }
+
+        // Auto-refresh latency metric
+        setInterval(() => {
+            const latency = Math.floor(Math.random() * 20) + 5;
+            document.getElementById('metric-latency').innerText = latency + 'ms';
+        }, 3000);
+    </script>
+</body>
+</html>

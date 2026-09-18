@@ -1,0 +1,11 @@
+fastapi>=0.110.0
+uvicorn>=0.29.0
+pydantic>=2.6.4
+sentence-transformers>=2.6.1
+transformers>=4.39.3
+torch>=2.2.2
+qdrant-client>=1.8.2
+langgraph>=0.0.31
+langchain>=0.1.13
+langchain-openai>=0.1.1
+outlines>=0.0.37

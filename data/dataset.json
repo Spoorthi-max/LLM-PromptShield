@@ -1,0 +1,8 @@
+[
+  {"url": "https://www.google.com", "label": "benign"},
+  {"url": "https://www.paypal.com", "label": "benign"},
+  {"url": "https://www.microsoft.com", "label": "benign"},
+  {"url": "http://microsoft-login-verify-2026.web.app", "label": "phish"},
+  {"url": "https://secure-paypal-verification.net", "label": "phish"},
+  {"url": "http://appleid-support-security-check.com", "label": "phish"}
+]
